@@ -6,4 +6,5 @@
 hostname = oauth.secure.pixiv.net
 
 [Script]
-http-response ^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token script-path=https://raw.githubusercontent.com/wubulaba/surgescript/master/Script/PixivPremium.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Pixiv Premium
+http-response ^https:\/\/oauth\.secure\.pixiv\.net\/auth\/token script-path=https://raw.githubusercontent.com/wubulaba/surgescript/master/Script/PixivPremium.js, requires-body=true, timeout=10, tag=Pixiv Premium
+enable = false
