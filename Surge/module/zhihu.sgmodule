@@ -2,8 +2,17 @@
 #!desc=知乎去广告
 
 [MITM]
-hostname = %APPEND% static.zhihu.com
+hostname = %APPEND% static.zhihu.com, www.zhihu.com, link.zhihu.com, oia.zhihu.com
+
+[Header Rewrite]
+^https:\/\/www\.zhihu\.com\/ header-replace User-Agent "Mozilla/5.0 (Windows Phone 10)"
+^https://www\.zhihu\.com\/(question|topic) header-replace User-Agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+
 
 [URL Rewrite]
 # > 知乎网页版强制登陆弹窗@HotKids -static.zhihu.com
 ^https?:\/\/static\.zhihu\.com\/[^\/]+\/(main|column)\.signflow\.[^.]+.js - reject
+# > 知乎网页显示优化
+^https://oia\.zhihu\.com/articles/([0-9]+)\?.* https://zhuanlan.zhihu.com/p/$1 307
+^https://oia\.zhihu\.com/answers/([0-9]+)\?.* https://www.zhihu.com/answer/$1 307
+^https?://link\.zhihu\.com/\?target=(https?)%3A//(.*) $1://$2 307
