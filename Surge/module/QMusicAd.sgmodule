@@ -2,6 +2,9 @@
 #!desc=脚本改自app2smile合集，独立出qq音乐广告屏蔽脚本
 #!system=ios
 
+[MITM]
+hostname = %APPEND% us.l.qq.com
+
 [Rule]
 # QQ音乐去广告
 DOMAIN,adstats.tencentmusic.com,REJECT
@@ -18,8 +21,13 @@ DOMAIN-SUFFIX,beacon.qq.com,REJECT
 DOMAIN-SUFFIX,sngdia.imtmp.net,REJECT
 DOMAIN-SUFFIX,ivapp.net,REJECT
 
-[MITM]
-hostname = %APPEND% us.l.qq.com
+[URL Rewrite]
+^https:\/\/us\.l\.qq\.com\/exapp - reject
+^https?:\/\/y\.gtimg\.cn\/music\/common\/upload\/t_splash_info\/ - reject
+^https?:\/\/.+?\/music\/common\/upload\/t_splash_info\/ - reject
+^https?:\/\/y\.gtimg\.cn\/music\/common\/\/upload\/kg_ad/.*?\d{4}\.jpg - reject-img
+^https?:\/\/y\.gtimg\.cn\/music\/common\/upload\/targeted_ads - reject-img
+^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/music\/common\/upload\/t_splash_info\/ - reject
 
 [Script]
 去广告 = type=http-response,pattern=https:\/\/us\.l\.qq\.com\/exapp,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/zqzess/rule_for_quantumultX/master/js/Mine/QmusicAdBlock/QMusicAd.js,script-update-interval=0
