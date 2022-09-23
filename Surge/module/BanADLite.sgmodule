@@ -4,7 +4,7 @@
 
 #主机名部分
 [MITM]
-hostname = %APPEND% images.client.vip.xunlei.com, xluser-ssl.xunlei.com, business-cdn.shouji.sougou.com, mp.weixin.qq.com, szextshort.weixin.qq.com, magev6.if.qidian.com*, qidian.qpic.cn, mage.if.qidian.com, api-access.pangolin-sdk-toutiao.com, api.coolapk.com, www.xiaohongshu.com, pages.xiaohongshu.com, static.zhihu.com, app.bilibili.com, api.bilibili.com, api.m.jd.com, img*.360buyimg.com, tiebac.baidu.com, weibointl.api.weibo*, sdkapp.uve.weibo.com
+hostname = %APPEND% images.client.vip.xunlei.com, xluser-ssl.xunlei.com, mp.weixin.qq.com, szextshort.weixin.qq.com, magev6.if.qidian.com*, qidian.qpic.cn, mage.if.qidian.com, api-access.pangolin-sdk-toutiao.com, api.coolapk.com, static.zhihu.com, app.bilibili.com, api.bilibili.com, api.m.jd.com, img*.360buyimg.com, tiebac.baidu.com
 
 [Rule]
 # baidu 域名屏蔽查询
@@ -49,9 +49,6 @@ IP-CIDR,180.96.2.114/32,REJECT,no-resolve
 ^https?:\/\/images\.client\.vip\.xunlei\.com\/.+?\/advert\/ - reject
 ^https?:\/\/images\.client\.vip\.xunlei\.com\/.+\/advert\/ - reject
 
-# > 🈲️搜狗输入法搜集信息 -business-cdn.shouji.sogou.com
-^https?+:\/\/business-cdn\.shouji\.sogou\.com\/wapdl\/hole\/.+?\.jpg - reject-200
-
 # >微信公众号文章下方广告 -mp.weixin.qq.com, szextshort.weixin.qq.com
 ^https?:\/\/mp\.weixin\.qq.com\/mp\/ad_complaint - reject
 ^https?:\/\/szextshort\.weixin\.qq\.com\/cgi-bin\/mmoc-bin\/ad\/ - reject-img
@@ -71,12 +68,6 @@ IP-CIDR,180.96.2.114/32,REJECT,no-resolve
 
 # >  酷安去首页广告、信息流广告、评论广告-api-access.pangolin-sdk-toutiao.com
 ^https?://api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk - reject
-
-# > 小红书开屏广告@chouchoui -www.xiaohongshu.com, pages.xiaohongshu.com
-^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/apple\/record* - reject
-^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/tag\/ads_engage* - reject
-^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/resource* - reject
-^https:\/\/pages\.xiaohongshu\.com\/data\/native\/matrix_switches* - reject
 
 # > 知乎网页版强制登陆弹窗@HotKids -static.zhihu.com
 ^https?:\/\/static\.zhihu\.com\/[^\/]+\/(main|column)\.signflow\.[^.]+.js - reject
