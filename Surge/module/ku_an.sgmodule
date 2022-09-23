@@ -1,0 +1,116 @@
+#!name=BanADLite
+#!desc=去除一些常用APP的开屏广告（仅限个人使用）
+# 仓库地址 https://github.com/Altriabot/QuantumultX
+
+#主机名部分
+[MITM]
+hostname = %APPEND% images.client.vip.xunlei.com, xluser-ssl.xunlei.com, business-cdn.shouji.sougou.com, mp.weixin.qq.com, szextshort.weixin.qq.com, magev6.if.qidian.com*, qidian.qpic.cn, mage.if.qidian.com, api-access.pangolin-sdk-toutiao.com, api.coolapk.com, www.xiaohongshu.com, pages.xiaohongshu.com, static.zhihu.com, app.bilibili.com, api.bilibili.com, api.m.jd.com, img*.360buyimg.com, tiebac.baidu.com, weibointl.api.weibo*, sdkapp.uve.weibo.com
+
+[Rule]
+# baidu 域名屏蔽查询
+RULE-SET,https://raw.githubusercontent.com/app2smile/rules/master/rule/tieba-ad.list,REJECT-DROP
+# 番茄小说去广告
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN-SUFFIX,byteimg.com,DIRECT
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,dig.bdurl.net,REJECT
+DOMAIN-KEYWORD,zijieapi,REJECT
+DOMAIN,activity-ag.awemeughun.com,REJECT
+DOMAIN,mcs.snssdk.com,REJECT
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT
+DOMAIN,security-lq.snssdk.com,REJECT
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+DOMAIN,is.snssdk.com,REJECT
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,v6-novelapp.ixigua.com,REJECT
+DOMAIN,*novelapp.ixigua.com,REJECT
+DOMAIN,*default.ixigua.com,REJECT
+DOMAIN,msync-im1-vip6-std.easemob.com,REJECT
+DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,REJECT
+DOMAIN,api.iegadp.qq.com,REJECT
+DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,byteorge.com,REJECT
+DOMAIN-SUFFIX,bytegoofy.com,REJECT
+DOMAIN-SUFFIX,bytedance.com,REJECT
+IP-CIDR,49.71.37.101/32,REJECT,no-resolve
+IP-CIDR,117.71.105.23/32,REJECT,no-resolve
+IP-CIDR,218.94.207.205/32,REJECT,no-resolve
+IP-CIDR,117.92.229.188/32,REJECT,no-resolve
+IP-CIDR,101.36.166.16/32,REJECT,no-resolve
+IP-CIDR,180.96.2.114/32,REJECT,no-resolve
+
+[URL Rewrite]
+
+# > 迅雷会员 -images.client.vip.xunlei.com,xluser-ssl.xunlei.com
+^https?+:\/\/images\.client\.vip\.xunlei\.com\/.+?\/advert\/ - reject-200
+^https?:\/\/images\.client\.vip\.xunlei\.com\/.+?\/advert\/ - reject
+^https?:\/\/images\.client\.vip\.xunlei\.com\/.+\/advert\/ - reject
+
+# > 🈲️搜狗输入法搜集信息 -business-cdn.shouji.sogou.com
+^https?+:\/\/business-cdn\.shouji\.sogou\.com\/wapdl\/hole\/.+?\.jpg - reject-200
+
+# >微信公众号文章下方广告 -mp.weixin.qq.com, szextshort.weixin.qq.com
+^https?:\/\/mp\.weixin\.qq.com\/mp\/ad_complaint - reject
+^https?:\/\/szextshort\.weixin\.qq\.com\/cgi-bin\/mmoc-bin\/ad\/ - reject-img
+^https?:\/\/mp\.weixin\.qq.com\/mp\/ad_video - reject
+^https?:\/\/mp\.weixin\.qq.com\/mp\/advertisement_report - reject
+^https?:\/\/mp\.weixin\.qq\.com\/(s|mp)\/(ad_|advertisement|getappmsgad|report|appmsgreport|appmsgpicreport) - reject-img
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/(ad_|advertisement|getappmsgad) - reject
+^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad) - reject-200
+
+# > 起点读书 -magev6.if.qidian.com, qidian.qpic.cn, mage.if.qidian
+^https?:\/\/qidian\.qpic\.cn\/qidian_common - reject-img
+^https?:\/\/mage\.if\.qidian\.com\/Atom\.axd\/Api\/Client\/GetConfIOS - reject-img
+^https?:\/\/mage\.if\.qidian\.com\/argus\/api\/v\d\/client\/getsplashscreen - reject
+^https://magev6.if.qidian.com/argus/api/v1/client/iosad - reject
+^https://magev6.if.qidian.com/argus/api/v1/bookshelf/getad - reject
+^https://magev6.if.qidian.com/argus/api/v4/client/getsplashscreen? - reject
+
+# >  酷安去首页广告、信息流广告、评论广告-api-access.pangolin-sdk-toutiao.com
+^https?://api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk - reject
+
+# > 小红书开屏广告@chouchoui -www.xiaohongshu.com, pages.xiaohongshu.com
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/apple\/record* - reject
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/tag\/ads_engage* - reject
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/resource* - reject
+^https:\/\/pages\.xiaohongshu\.com\/data\/native\/matrix_switches* - reject
+
+# > 知乎网页版强制登陆弹窗@HotKids -static.zhihu.com
+^https?:\/\/static\.zhihu\.com\/[^\/]+\/(main|column)\.signflow\.[^.]+.js - reject
+
+# ～ BiliBili_哔哩哔哩_小卡片广告@ddgksf2013. -api.bilibili.com
+^https://api.bilibili.com/pgc/season/player/cards - reject-dict
+^https?:\/\/api\.bilibili\.com\/pgc\/season\/app\/related\/recommend\? - reject-dict
+
+# ～ BiliBili_哔哩哔哩_应用开屏去广告@bm7 -app.bilibili.com
+^https://app.bilibili.com/x/v2/splash/show - reject-dict
+
+# > JD 京东开屏广告（此条规则会影响京东比价显示，使其失效）- api.m.jd.com,img*.360buyimg.com
+^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=start - reject
+^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=queryMaterialAdverts - reject
+^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ - reject
+^https?:\/\/img\d+\.360buyimg\.com\/jddjadvertise\/ - reject
+
+#微博轻享版去广告@ddgksf2013  -weibointl.api.weibo*,sdkapp.uve.weibo.com
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php  - reject
+^ttps?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*user&a=get_searching_info - reject
+^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*feed&a=search_topic - reject
+^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*ads - reject
+
+
+
+[Script]
+# > 酷安完美去首页广告、信息流广告、评论广告 -api.coolapk.com
+酷安完美去广告 = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/api\.coolapk\.com\/v6\/(feed\/(replyList|detail)|main\/indexV8|dataList),script-path=https://raw.githubusercontent.com/Altriabot/QuantumultX/main/Scripts/coolapk.js
+
+# > 起点开屏页广告,每日导读去除,冷启动强制跳转精选页去除,去除发现页弹出的活动弹窗,去除下方(精选 发现 中间的)活动时的tab,去除书架右下角的活动/广告的悬浮icon
+起点完美去广告 = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/magev6\.if\.qidian\.com\/argus\/api\/(v4\/client\/getsplashscreen|v2\/deeplink\/geturl|v1\/(client\/getconf|bookshelf\/getHoverAdv|adv\/getadvlistbatch\?positions=iOS_tab|dailyrecommend\/getdailyrecommend)),script-path=https://raw.githubusercontent.com/Altriabot/QuantumultX/main/Scripts/qidian.js
+# > 迅雷会员
+迅雷会员 = type=http-response,requires-body=1,max-size=0,pattern=https://xluser-ssl.xunlei.com/xluser.core.login/v3/getuserinfo,script-path=https://raw.githubusercontent.com/Marol62926/MarScrpt/main/xunlei.js
+
+# 贴吧去广告
+贴吧 = type=http-response,requires-body=1,max-size=0,pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/(tiebaads\/commonbatch|c\/s\/sync),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-json.js,script-update-interval=0
+贴吧proto = type=http-response,requires-body=1,binary-body-mode=1,max-size=0,pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-proto.js,script-update-interval=0
