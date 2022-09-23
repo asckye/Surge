@@ -1,0 +1,16 @@
+#!name=酷安去广告
+#!desc=去除酷安广告
+
+
+[MITM]
+hostname = %APPEND%  api-access.pangolin-sdk-toutiao.com, api.coolapk.com
+
+
+[URL Rewrite]
+# >  酷安去首页广告、信息流广告、评论广告-api-access.pangolin-sdk-toutiao.com
+^https?://api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk - reject
+
+
+[Script]
+# > 酷安完美去首页广告、信息流广告、评论广告 -api.coolapk.com
+酷安完美去广告 = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/api\.coolapk\.com\/v6\/(feed\/(replyList|detail)|main\/indexV8|dataList),script-path=https://raw.githubusercontent.com/Altriabot/QuantumultX/main/Scripts/coolapk.js
