@@ -3,7 +3,7 @@
 #!system=ios
 
 [MITM]
-hostname = %APPEND% us.l.qq.com
+hostname = %APPEND% us.l.qq.com, y.gtimg.cn
 
 [Rule]
 # QQ音乐去广告
