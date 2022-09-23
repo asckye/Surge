@@ -1,0 +1,9 @@
+#!name=知乎去广告
+#!desc=知乎去广告
+
+[MITM]
+hostname = %APPEND% static.zhihu.com
+
+[URL Rewrite]
+# > 知乎网页版强制登陆弹窗@HotKids -static.zhihu.com
+^https?:\/\/static\.zhihu\.com\/[^\/]+\/(main|column)\.signflow\.[^.]+.js - reject
