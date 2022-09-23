@@ -1,0 +1,16 @@
+#!name=京东去广告
+#!desc=去除京东开屏广告
+
+[MITM]
+hostname = %APPEND% api.m.jd.com, img*.360buyimg.com, api.m.jd.com
+
+[Rule]
+# > 京东  去启动广告
+URL-REGEX,^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$,REJECT-TINYGIF
+
+[URL Rewrite]
+# > JD 京东开屏广告（此条规则会影响京东比价显示，使其失效）- api.m.jd.com,img*.360buyimg.com
+^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=start - reject
+^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=queryMaterialAdverts - reject
+^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ - reject
+^https?:\/\/img\d+\.360buyimg\.com\/jddjadvertise\/ - reject
