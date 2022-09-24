@@ -1,2 +1,3 @@
-# Script for Surge & Quantumult X
+# Script for Surge
+
 
