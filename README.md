@@ -1,3 +1,3 @@
-# Script for Surge
+# Script
 
 
